@@ -138,7 +138,6 @@ function () {
     this.add = this.main.querySelector(".tabAdd");
     this.ul = this.main.querySelector("header :first-child");
     this.tabcon = this.main.querySelector("main");
-    console.log(this.tabcon);
     this.init();
   } // 初始化
 
@@ -152,6 +151,9 @@ function () {
       for (var i = 0; i < this.lis.length; i++) {
         this.lis[i].index = i;
         this.lis[i].onclick = this.toggleTab;
+        this.remove[i].onclick = this.removeTab;
+        this.spans[i].ondblclick = this.editTab;
+        this.sections[i].ondblclick = this.editTab;
       }
     } // 获取所有元素
 
@@ -160,6 +162,8 @@ function () {
     value: function updateNode() {
       this.lis = this.main.querySelectorAll("li");
       this.sections = this.main.querySelectorAll("section");
+      this.remove = this.main.querySelectorAll(".remove");
+      this.spans = this.main.querySelectorAll(".nav li span:first-child");
     } // 切换
 
   }, {
@@ -183,7 +187,7 @@ function () {
     key: "addTab",
     value: function addTab() {
       that.clearClass();
-      var li = "<li class='active'><span>新选项</span><span>x</span></li>";
+      var li = "<li class='active'><span>新选项</span><span class='remove'>x</span></li>";
       var tab = "<section class='conactive'>测试n</section>";
       that.ul.insertAdjacentHTML("beforeend", li);
       that.tabcon.insertAdjacentHTML("beforeend", tab);
@@ -192,13 +196,33 @@ function () {
 
   }, {
     key: "removeTab",
-    value: function removeTab() {
-      console.log("remove");
+    value: function removeTab(e) {
+      e.stopPropagation();
+      var index = this.parentNode.index;
+      that.lis[index].remove();
+      that.sections[index].remove();
+      if (document.querySelector(".active")) return;
+      index--;
+      that.lis[index] && that.lis[index].click();
     } // 修改
 
   }, {
     key: "editTab",
-    value: function editTab() {}
+    value: function editTab() {
+      var str = this.innerHTML;
+      window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+      this.innerHTML = "<input type='input' value='".concat(str, "' />");
+      var input = this.children[0];
+      input.select();
+
+      input.onblur = function () {
+        this.parentNode.innerHTML = this.value;
+      };
+
+      input.onkeyup = function (e) {
+        if (e.keyCode === 13) this.blur();
+      };
+    }
   }]);
 
   return Tab;
