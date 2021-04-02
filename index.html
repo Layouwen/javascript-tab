@@ -1,13 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>class</title>
-</head>
-<body>
-<script src="demo1.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>tab-class</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div id="tab">
+      <header>
+        <ul class="nav">
+          <li class="active">
+            <span>测试1</span>
+            <span class="remove">x</span>
+          </li>
+          <li>
+            <span>测试2</span>
+            <span class="remove">x</span>
+          </li>
+          <li>
+            <span>测试3</span>
+            <span class="remove">x</span>
+          </li>
+          <li>
+            <span>测试4</span>
+            <span class="remove">x</span>
+          </li>
+        </ul>
+        <span class="tabAdd">添加</span>
+      </header>
+      <main>
+        <section class="conactive">测试1</section>
+        <section>测试2</section>
+        <section>测试3</section>
+        <section>测试4</section>
+      </main>
+    </div>
+    <script src="./index.js"></script>
+  </body>
 </html>
